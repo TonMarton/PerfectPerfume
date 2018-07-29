@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="edittext_height">60dp</dimen>
+
+    <dimen name="plus_minus_btns_width">60dp</dimen>
+    <dimen name="plus_minus_btns_height">34dp</dimen>
+    <dimen name="counter_layout_width">96dp</dimen>
+    <dimen name="counter_layout_height">158dp</dimen>
+    <dimen name="counter_tv_height">26dp</dimen>
+
+    <dimen name="greater_margin">16dp</dimen>
+
+    <dimen name="checkout_item_base_elevation">2dp</dimen>
+    <dimen name="checkout_item_active_elevation">4dp</dimen>
+
+    <dimen name="counter_btn_base_elevation">4dp</dimen>
+    <dimen name="counter_btn_active_elevation">8dp</dimen>
+
+</resources>

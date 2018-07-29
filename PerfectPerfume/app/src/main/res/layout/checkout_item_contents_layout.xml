@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/checkout_card_ll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/counter_fl"
+        android:layout_width="@dimen/counter_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0">
+
+        <TextView
+            android:id="@+id/counter_tv"
+            android:text="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:textSize="24sp"/>
+
+        <LinearLayout
+            android:id="@+id/counter_btns_ll"
+            android:orientation="vertical"
+            android:layout_width="@dimen/counter_layout_width"
+            android:layout_height="@dimen/counter_layout_height"
+            android:alpha="0"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/plus_btn_iv"
+                android:layout_width="@dimen/plus_minus_btns_width"
+                android:layout_height="@dimen/plus_minus_btns_height"
+                android:layout_weight="0"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                android:elevation="0dp"
+                android:src="@drawable/plus"
+                android:background="@drawable/plus_btn_bg"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/plus_btn_content_desc"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/minus_btn_iv"
+                android:layout_width="@dimen/plus_minus_btns_width"
+                android:layout_height="@dimen/plus_minus_btns_height"
+                android:layout_weight="0"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:padding="8dp"
+                android:src="@drawable/minus"
+                android:elevation="0dp"
+                android:background="@drawable/minus_btn_bg"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/minus_btn_content_desc"/>
+        </LinearLayout>
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/name_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/checkout_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-light"/>
+
+        <LinearLayout
+            android:id="@+id/checkout_price_container_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:alpha="0">
+
+            <TextView
+                android:id="@+id/checkout_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"/>
+
+            <TextView
+                android:id="@+id/checkout_perpiece_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

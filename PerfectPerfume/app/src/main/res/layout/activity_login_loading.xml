@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="42sp"
+        android:text="Perfect Perfume"
+        android:fontFamily="@font/signpainter_housescript_regular"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:textColor="@android:color/black"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <com.example.android.perfectperfume.ui.LoadingAnimationLayout
+            android:id="@+id/loading_animation_layout_fl"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="60dp"
+            android:visibility="visible">
+        </com.example.android.perfectperfume.ui.LoadingAnimationLayout>
+
+        <!--FrameLayout
+            android:id="@+id/bottle_frame_container_fl"
+            android:layout_width="85.115131578dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="60dp">
+
+            <View
+                android:id="@+id/filler_v"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/colorAccent"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/fillable_frame_green"
+                android:scaleType="fitCenter"
+                />
+
+        </FrameLayout-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logging-in"
+                android:fontFamily="@font/signpainter_housescript_regular"
+                android:textSize="32sp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="ton.marton@gmail.com"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

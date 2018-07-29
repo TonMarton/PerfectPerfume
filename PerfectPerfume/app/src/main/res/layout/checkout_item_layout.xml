@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.android.perfectperfume.ui.checkoutActivity.CheckOutCardLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/checkout_item_bg"
+    android:elevation="@dimen/checkout_item_base_elevation">
+</com.example.android.perfectperfume.ui.checkoutActivity.CheckOutCardLayout>

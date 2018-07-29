@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">PerfectPerfume</string>
+
+    <!--LoginActivity UI-->
+    <string name="login_screen_welcome_text">Welcome to Perfect Perfume</string>
+    <string name="email_edittext_caption">E-mail address</string>
+    <string name="password_edittext_caption">Password</string>
+    <string name="login_button_text">Log-in</string>
+    <string name="or_login_text">OR</string>
+    <string name="register_button_text">Sign-up</string>
+
+    <!--SignUpActivity UI-->
+    <string name="sign_up_activity_label">Sign-Up</string>
+
+    <string name="sign_up_disclaimer_text">By Creating a Perfect Perfume account, you gain access to
+        good deals and full membership on our platform. By Signing-up you also agree to the terms
+        and conditions.</string>
+
+    <!--Cart-->
+    <string name="cart_item_title">Cart</string>
+
+    <!--CheckOutActivity-->
+    <string name="plus_btn_content_desc">plus</string>
+    <string name="minus_btn_content_desc">minus</string>
+    <string name="checkout_total_text">Total</string>
+
+</resources>
