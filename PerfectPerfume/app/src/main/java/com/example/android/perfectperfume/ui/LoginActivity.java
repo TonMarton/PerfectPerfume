@@ -14,6 +14,8 @@ import com.example.android.perfectperfume.utilities.SignInHandler;
 
 public class LoginActivity extends AppCompatActivity implements SignInHandler.SignInHelper {
 
+    // this is a completely different branch - this is feature - behold
+
     private LoadingAnimationLayout loadingAnimationLayout;
 
     private EditText emailEditText;
