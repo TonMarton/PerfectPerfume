@@ -2,6 +2,7 @@ package com.example.android.perfectperfume.utilities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class SignInHandler {
+public class SignInHandler implements FirebaseAuth.AuthStateListener{
 
     private SignInHelper signInCallbacks;
     private GoogleSignInClient googleSignInClient;
@@ -35,6 +36,7 @@ public class SignInHandler {
     public interface SignInHelper {
         void startActivityForAuthentication(Intent signInIntent);
         void signInReady();
+        void showLoginInterface();
     }
 
     public SignInHandler(Context context) {
@@ -47,7 +49,25 @@ public class SignInHandler {
         }
         this.context = context;
         auth = FirebaseAuth.getInstance();
-        //auth.addAuthStateListener(createAuthStateListener());
+        auth.addAuthStateListener(this);
+    }
+
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth auth) {
+        auth.removeAuthStateListener(this);
+        final FirebaseUser user = auth.getCurrentUser();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                if (user != null) {
+                    signInCallbacks.showLoginInterface();
+                } else {
+                    signInCallbacks.signInReady();
+                }
+            }
+        }, 2000);
     }
 
     public void authenticateWithGoogle() {
@@ -137,13 +157,4 @@ public class SignInHandler {
                 password.length() >= PASSWORD_LENGTH;
         //TODO: extend functionality to give error messages and info about password requirements
     }
-
-    /*private FirebaseAuth.AuthStateListener createAuthStateListener() {
-        FirebaseAuth.AuthStateListener listener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-            }
-        }
-    }*/
 }
