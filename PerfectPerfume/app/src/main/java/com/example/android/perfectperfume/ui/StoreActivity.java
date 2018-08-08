@@ -47,14 +47,16 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
-        cart = new Cart(this);
+        initLoadingScreen();
+
+        /*cart = new Cart(this);
         cartAnimation = AnimationUtils
                 .loadAnimation(this, R.anim.cart_animation);
         perfumeDbHelper = new PerfumeDbHelper(this);
 
         toolbar = findViewById(R.id.toolbar_store);
         setSupportActionBar(toolbar);
-        recyclerView = findViewById(R.id.store_recycler_view);
+        recyclerView = findViewById(R.id.store_rv);
         recyclerView.setLayoutManager(new GridLayoutManager(StoreActivity.this, 1));
 
         if (savedInstanceState != null) {
@@ -62,6 +64,7 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
             setRecyclerViewAdapter(mPerfumes);
             Log.d(LOG_DATA_LOAD_TYPE, "SavedInstanceState");
         }
+        */
     }
 
     @Override
@@ -100,12 +103,16 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
         outState.putParcelableArrayList(SAVE_PERFUMES_KEY , (ArrayList<Perfume>) mPerfumes);
     }
 
+    private void initLoadingScreen() {
+        LoadingAnimationLayout loadingLayout = findViewById(R.id.loading_animation_layout_fl);
+        loadingLayout.startAnimation();
+    }
+
     private void setRecyclerViewAdapter(List<Perfume> items) {
         StoreAdapter adapter = new StoreAdapter(StoreActivity.this, items);
         recyclerView.setAdapter(adapter);
     }
 
-    // Cart callback - signal the user that there are items in the cart
     @Override
     public void animateCartIcon() {
         cartImageView.startAnimation(cartAnimation);

@@ -61,9 +61,10 @@ public class SignInHandler implements FirebaseAuth.AuthStateListener{
 
             @Override
             public void run() {
-                if (user != null) {
+                if (user == null) {
                     signInCallbacks.showLoginInterface();
                 } else {
+                    Log.d("UserEmail" ,user.getEmail());
                     signInCallbacks.signInReady();
                 }
             }

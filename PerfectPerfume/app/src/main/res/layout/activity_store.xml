@@ -7,12 +7,13 @@
     tools:context=".ui.StoreActivity">
 
     <RelativeLayout
+        android:id="@+id/rv_container_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?android:attr/actionBarSize">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/store_recycler_view"
+            android:id="@+id/store_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>
@@ -29,4 +30,20 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/loading_screen_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <com.example.android.perfectperfume.ui.LoadingAnimationLayout
+            android:id="@+id/loading_animation_layout_fl"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/loading_anim_transition_bg">
+        </com.example.android.perfectperfume.ui.LoadingAnimationLayout>
+    </RelativeLayout>
 </FrameLayout>
