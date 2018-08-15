@@ -25,6 +25,8 @@ public class LoadingAnimationLayout extends FrameLayout {
 
     private ImageView imageView;
 
+    private ObjectAnimator rotationAnim;
+
     public LoadingAnimationLayout(@NonNull Context context) {
         super(context);
         init();
@@ -61,12 +63,12 @@ public class LoadingAnimationLayout extends FrameLayout {
                         }
                         //TODO: could remove this line:
                         LoadingAnimationLayout.this.invalidate();
-                        assambleAndLaunchAnimations();
+                        assembleAndLaunchAnimations();
                     }
                 });
     }
 
-    private void assambleAndLaunchAnimations() {
+    private void assembleAndLaunchAnimations() {
         final int BG_TRANSITION_LENGTH = 1000;
         TransitionDrawable transitionDrawable = (TransitionDrawable) this.getBackground();
         ValueAnimator sizeAnim = createContainerSizeAnim();

@@ -4,15 +4,26 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.transition.Explode;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.example.android.perfectperfume.R;
 import com.example.android.perfectperfume.utilities.SignInHandler;
@@ -20,12 +31,13 @@ import com.example.android.perfectperfume.utilities.SignInHandler;
 public class LoginActivity extends AppCompatActivity implements SignInHandler.SignInHelper {
 
     private SignInHandler signInHandler;
-
-
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        configureTransitions();
+
         setContentView(R.layout.activity_login);
         signInHandler = new SignInHandler(this);
     }
@@ -47,17 +59,19 @@ public class LoginActivity extends AppCompatActivity implements SignInHandler.Si
         if (requestCode == SignInHandler.RC_SIGN_IN) signInHandler.signInWithGoogle(data);
     }
 
-    // SignInHelper interface functions
     @Override
     public void startActivityForAuthentication(Intent signInIntent) {
         startActivityForResult(signInIntent, SignInHandler.RC_SIGN_IN);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void signInReady() {
         Intent intent = new Intent(this, StoreActivity.class);
-        startActivity(intent);
-        finish();
+        ImageView sharedElement = findViewById(R.id.login_shared_element_iv);
+        ActivityOptions options = ActivityOptions
+                .makeSceneTransitionAnimation(this, sharedElement, "shared_element_bottle");
+        startActivity(intent, options.toBundle());
     }
 
     @Override
@@ -67,8 +81,17 @@ public class LoginActivity extends AppCompatActivity implements SignInHandler.Si
                 .inflate(R.layout.login_interface_layout, root, false);
         root.addView(interfaceLayout);
         FrameLayout loadingLayout = findViewById(R.id.loading_root_fl);
-        makeLayoutSwapAnimation(loadingLayout, interfaceLayout, root.getWidth());
+        LayoutSwapAnimator.swap(loadingLayout, interfaceLayout, root.getWidth());
         setUpForLogIn();
+    }
+
+    private void configureTransitions() {
+        //TODO: maybe request feature in a xml file
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setAllowEnterTransitionOverlap(false);
+            getWindow().setExitTransition(null);
+        }
     }
 
     private void setUpForLogIn() {

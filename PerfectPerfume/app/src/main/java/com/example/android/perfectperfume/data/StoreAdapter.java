@@ -3,6 +3,7 @@ package com.example.android.perfectperfume.data;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.android.perfectperfume.ui.DetailActivity;
 import com.example.android.perfectperfume.R;
 import com.example.android.perfectperfume.ui.StoreActivity;
@@ -18,8 +23,15 @@ import java.util.List;
 
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> {
 
-    List<Perfume> perfumes;
-    Context context;
+    private List<Perfume> perfumes;
+    private Context context;
+    private StoreAdapterCallbacks callbacks;
+    private int counter;
+    private boolean initalLoadingHappend = false;
+
+    public interface StoreAdapterCallbacks {
+        void initialImageLoadingReady();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public RelativeLayout layout;
@@ -40,6 +52,12 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
     }
 
     public StoreAdapter(Context context, List<Perfume> perfumes) {
+        try {
+            callbacks = (StoreAdapterCallbacks) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.getClass()
+                    + " should implement StoreAdapterCallbacks.");
+        }
         this.context = context;
         this.perfumes = perfumes;
     }
@@ -58,6 +76,22 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
         holder.perfumeNameTextView.setText(perfume.getName() + " by " + perfume.getBrand());
         holder.perfumeSexTextView.setText("For " + perfume.getSex());
         holder.perfumePriceTextView.setText("€" + perfume.getPrice());
+        String uri = perfumes.get(0).getimageurl();
+        counter++;
+        Glide.with(context).load(uri).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                notifyImageCounter();
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                notifyImageCounter();
+                return false;
+            }
+        })
+                .into(holder.imageView);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,10 +100,20 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
                 context.startActivity(intent);
             }
         });
+        Log.d("item", "bound");
     }
 
     @Override
     public int getItemCount() {
+        Log.d("perfume size", Integer.toString(perfumes.size()));
         return perfumes.size();
+    }
+
+    private void notifyImageCounter() {
+        counter--;
+        if (counter <= 0 && !initalLoadingHappend) {
+            initalLoadingHappend = true;
+            callbacks.initialImageLoadingReady();
+        }
     }
 }

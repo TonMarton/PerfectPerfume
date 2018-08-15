@@ -11,6 +11,7 @@ public class Cart implements TickerCartDbHelper.TickerCallbacks,
         AnimationTimer.AnimationTimerCallbacks {
 
     //TODO: cart on click not working while animated
+    //TODO: ticks more than it should
     private TickerCartDbHelper dbHelper;
     private Context context;
     private CartCallbacks callbacks;

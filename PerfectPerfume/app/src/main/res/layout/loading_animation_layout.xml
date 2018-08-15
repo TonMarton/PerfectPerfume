@@ -5,4 +5,5 @@
     android:src="@drawable/bottle_frame_dark"
     android:scaleType="fitCenter"
     android:padding="16dp"
-    android:layout_gravity="center"/>
+    android:layout_gravity="center"
+    android:transitionName="shared_element_bottle"/>

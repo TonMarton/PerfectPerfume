@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:id="@+id/store_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.StoreActivity">
 
-    <RelativeLayout
-        android:id="@+id/rv_container_rl"
+    <FrameLayout
+        android:id="@+id/store_ui_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?android:attr/actionBarSize">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/store_rv"
+        <RelativeLayout
+            android:id="@+id/rv_container_rl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_marginTop="?android:attr/actionBarSize">
+        </RelativeLayout>
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_store"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/store_appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="4dp">
+            android:layout_height="?android:attr/actionBarSize">
 
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_store"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="4dp">
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+    </FrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/loading_screen_layout"
+    <FrameLayout
+        android:id="@+id/store_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:orientation="vertical">
+        android:layout_gravity="center">
 
         <com.example.android.perfectperfume.ui.LoadingAnimationLayout
             android:id="@+id/loading_animation_layout_fl"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:background="@drawable/loading_anim_transition_bg">
         </com.example.android.perfectperfume.ui.LoadingAnimationLayout>
-    </RelativeLayout>
+    </FrameLayout>
 </FrameLayout>
