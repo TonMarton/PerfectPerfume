@@ -2,6 +2,7 @@ package com.example.android.perfectperfume.utilities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -9,12 +10,14 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.example.android.perfectperfume.R;
+import com.example.android.perfectperfume.ui.WarningMessage;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -128,24 +131,47 @@ public class SignInHandler implements FirebaseAuth.AuthStateListener{
                 });
     }
 
-    private void handleResult(Task<AuthResult> task, int type) {
+    private void handleResult(final Task<AuthResult> task, final int type) {
         final String logText;
         if (type == 0) {
-            logText = "signInWithEmail:";
+            logText = "signInWithEmail";
         } else if (type == 1) {
             logText = "signInWithCredential";
         } else {
-            logText = "signUpWithEmail:";
+            logText = "signUpWithEmail";
         }
-        if (task.isSuccessful()) {
+        task.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(LOG_IN_TAG,  logText + " succeeded");
+                FirebaseUser user = auth.getCurrentUser();
+                signInCallbacks.signInReady();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(LOG_IN_TAG, logText + " failed", task.getException());
+                String warningText;
+                Resources res = context.getResources();
+                if (type == 0) {
+                    warningText = res.getString(R.string.email_signin_error_warning);
+                } else if (type == 1) {
+                    warningText = res.getString(R.string.google_signin_error_warning);
+                } else {
+                    warningText = res.getString(R.string.email_signup_error_warning);
+                }
+                WarningMessage.createConnectionWarning(context, warningText);
+            }
+        });
+        /*if (task.isSuccessful()) {
             Log.d(LOG_IN_TAG,  logText + ":success");
             FirebaseUser user = auth.getCurrentUser();
             signInCallbacks.signInReady();
         } else {
             // If sign in fails, display a message to the user.
             Log.w(LOG_IN_TAG, logText + ":failure", task.getException());
-            //TODO: Do something to report error and prompt to try again
-        }
+            WarningMessage.createConnectionWarning(context, "");
+        }*/
     }
 
     public static FirebaseUser getCurrentUser() {

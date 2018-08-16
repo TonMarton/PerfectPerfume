@@ -59,6 +59,12 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
     }
 
     @Override
+    public void sendDatabaseError() {
+        WarningMessage.createConnectionWarning(this,
+                this.getResources().getString(R.string.default_database_warning));
+    }
+
+    @Override
     public void initialImageLoadingReady() {
         swapLayouts();
     }

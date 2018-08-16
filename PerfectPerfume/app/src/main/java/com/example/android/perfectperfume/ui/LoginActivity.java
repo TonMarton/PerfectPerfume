@@ -1,25 +1,13 @@
 package com.example.android.perfectperfume.ui;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.transition.Explode;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -40,17 +28,6 @@ public class LoginActivity extends AppCompatActivity implements SignInHandler.Si
 
         setContentView(R.layout.activity_login);
         signInHandler = new SignInHandler(this);
-    }
-
-    //if there is a user signed in, there is no need for further authentication.
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        //TODO: on google login make the activity disappear on success
-        // signInReady(); OR setUpForLogIn();
-        // based on the authentication status
-        // implement a proper auth state listener
     }
 
     @Override
@@ -125,51 +102,5 @@ public class LoginActivity extends AppCompatActivity implements SignInHandler.Si
                 signInHandler.authenticateWithGoogle();
             }
         });
-    }
-
-    private void makeLayoutSwapAnimation(FrameLayout leftL, FrameLayout rightL, int width) {
-        repositionRightLayout(rightL, width);
-        leftL.getLayoutParams().width = width;
-        createCombinedAnimationSet(leftL, rightL, width).start();
-    }
-
-    private void repositionRightLayout(FrameLayout rightL, int width) {
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) rightL.getLayoutParams();
-        params.leftMargin = width;
-        params.width = width;
-        rightL.setLayoutParams(params);
-        rightL.setVisibility(View.VISIBLE);
-    }
-
-    private AnimatorSet createCombinedAnimationSet(final FrameLayout leftL, FrameLayout rightL, int width) {
-        AnimatorSet combinedSet = new AnimatorSet();
-        ValueAnimator outAnim = createSlideLeftAnimation(0, -width, leftL);
-        ValueAnimator inAnim = createSlideLeftAnimation( width, 0, rightL);
-        combinedSet.play(outAnim).with(inAnim);
-        combinedSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                leftL.setVisibility(View.GONE);
-                ViewGroup root = (ViewGroup) leftL.getParent();
-                root.removeView(leftL);
-            }
-        });
-        combinedSet.setInterpolator(new DecelerateInterpolator());
-        return combinedSet;
-    }
-
-    private ValueAnimator createSlideLeftAnimation(int start, int end, final FrameLayout layout) {
-        final ValueAnimator slideLeft = ValueAnimator.ofInt(start, end);
-        slideLeft.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int val = (Integer) valueAnimator.getAnimatedValue();
-                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) layout.getLayoutParams();
-                layoutParams.leftMargin = val;
-                layout.setLayoutParams(layoutParams);
-            }
-        });
-        slideLeft.setDuration(1000);
-        return slideLeft;
     }
 }

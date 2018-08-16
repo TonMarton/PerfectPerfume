@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.android.perfectperfume.R;
 import com.example.android.perfectperfume.data.cartDb.TickerCartDbHelper;
+import com.example.android.perfectperfume.ui.WarningMessage;
 import com.example.android.perfectperfume.utilities.AnimationTimer;
 
 public class Cart implements TickerCartDbHelper.TickerCallbacks,
@@ -20,6 +21,38 @@ public class Cart implements TickerCartDbHelper.TickerCallbacks,
 
     public interface CartCallbacks{
         void animateCartIcon();
+    }
+
+    @Override
+    public void sendDatabaseError() {
+        WarningMessage.createConnectionWarning(context,
+                context.getResources().getString(R.string.default_database_warning));
+    }
+
+    @Override
+    public void animateCart() {
+        callbacks.animateCartIcon();
+    }
+
+    @Override
+    public boolean isCartEmpty() {
+        return isCartEmpty;
+    }
+
+    @Override
+    public void updateCartTicker(boolean isEmpty) {
+        if (isCartEmpty && !isEmpty) {
+            animateCart();
+        }
+        isCartEmpty = isEmpty;
+        if (!isEmpty) {
+            if (animationTimer == null) {
+                animationTimer = new AnimationTimer(this,
+                        context.getResources().getInteger(R.integer.cart_animation_offset));
+            } else {
+                animationTimer.restartTimer();
+            }
+        }
     }
 
     public Cart(Context context) {
@@ -41,34 +74,6 @@ public class Cart implements TickerCartDbHelper.TickerCallbacks,
         isCartEmpty = true;
         if (animationTimer != null) animationTimer.restartTimer();
         dbHelper.refreshCartData();
-    }
-
-    @Override
-    public void updateCartTicker(boolean isEmpty) {
-        if (isCartEmpty && !isEmpty) {
-            animateCart();
-        }
-        isCartEmpty = isEmpty;
-        if (!isEmpty) {
-            if (animationTimer == null) {
-                animationTimer = new AnimationTimer(this,
-                        context.getResources().getInteger(R.integer.cart_animation_offset));
-            } else {
-                animationTimer.restartTimer();
-            }
-        }
-        Log.d("CART is empty", Boolean.toString(isEmpty));
-    }
-
-    @Override
-    public void animateCart() {
-        callbacks.animateCartIcon();
-        Log.d("ANIMATED", "CartIcon");
-    }
-
-    @Override
-    public boolean isCartEmpty() {
-        return isCartEmpty;
     }
 
     public void addItemToCart(int id) {

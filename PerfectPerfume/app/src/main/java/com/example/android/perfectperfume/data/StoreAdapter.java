@@ -27,7 +27,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
     private Context context;
     private StoreAdapterCallbacks callbacks;
     private int counter;
-    private boolean initalLoadingHappend = false;
+    private boolean initialLoadingHappened = false;
 
     public interface StoreAdapterCallbacks {
         void initialImageLoadingReady();
@@ -100,19 +100,17 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
                 context.startActivity(intent);
             }
         });
-        Log.d("item", "bound");
     }
 
     @Override
     public int getItemCount() {
-        Log.d("perfume size", Integer.toString(perfumes.size()));
         return perfumes.size();
     }
 
     private void notifyImageCounter() {
         counter--;
-        if (counter <= 0 && !initalLoadingHappend) {
-            initalLoadingHappend = true;
+        if (counter <= 0 && !initialLoadingHappened) {
+            initialLoadingHappened = true;
             callbacks.initialImageLoadingReady();
         }
     }

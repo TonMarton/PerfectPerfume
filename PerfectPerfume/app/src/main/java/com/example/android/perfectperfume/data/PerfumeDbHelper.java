@@ -27,6 +27,7 @@ public class PerfumeDbHelper implements ValueEventListener{
 
     public interface PerfumeDataCallbacks {
         void deliverPerfumes(List<Perfume> items);
+        void sendDatabaseError();
     }
 
     public PerfumeDbHelper(Object object) {
@@ -51,7 +52,8 @@ public class PerfumeDbHelper implements ValueEventListener{
 
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+        callbacks.sendDatabaseError();
+        Log.e("PerfumeDbHelper", databaseError.getDetails());
     }
 
     private void setImageIds(List<Perfume> items) {
@@ -77,7 +79,8 @@ public class PerfumeDbHelper implements ValueEventListener{
             @Override
             public void onFailure(@NonNull Exception exception) {
                 notifyCounter();
-                //TODO: handle the errors
+                callbacks.sendDatabaseError();
+                exception.printStackTrace();
             }
         });
     }

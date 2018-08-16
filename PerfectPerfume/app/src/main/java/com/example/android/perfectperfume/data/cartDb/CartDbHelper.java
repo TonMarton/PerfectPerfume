@@ -32,11 +32,6 @@ public abstract class CartDbHelper implements ValueEventListener {
         getCartData(ds);
     }
 
-    @Override
-    public void onCancelled(@NonNull DatabaseError databaseError) {
-        //TODO: do something to warn the user or something
-    }
-
     public void refreshCartData() {
         dbRef.addListenerForSingleValueEvent(this);
     }

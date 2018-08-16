@@ -1,8 +1,12 @@
 package com.example.android.perfectperfume.data;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 
 import com.example.android.perfectperfume.data.cartDb.CheckOutCartDbHelper;
+import com.example.android.perfectperfume.ui.WarningMessage;
 import com.example.android.perfectperfume.ui.checkoutActivity.CheckOutFragment;
 import com.example.android.perfectperfume.utilities.PaymentHelper;
 
@@ -12,6 +16,7 @@ import java.util.List;
 public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCallbacks,
         PerfumeDbHelper.PerfumeDataCallbacks, PaymentHelper.PaymentCallbacks {
 
+    private FragmentActivity activity;
     private CheckOutCartCallbacks callbacks;
     private CheckOutCartDbHelper cartDbHelper;
     private PerfumeDbHelper perfumeDbHelper;
@@ -32,9 +37,10 @@ public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCa
         } catch (ClassCastException e) {
             throw new ClassCastException("CheckOutFragment should implement CheckOutCartCallbacks");
         }
+        activity = fragment.getActivity();
         cartDbHelper = new CheckOutCartDbHelper(this);
         perfumeDbHelper = new PerfumeDbHelper(this);
-        paymentHelper = new PaymentHelper(this, fragment.getActivity());
+        paymentHelper = new PaymentHelper(this, activity);
     }
 
     public void changeItemCount(int id, boolean isPlus) {
@@ -74,6 +80,10 @@ public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCa
         }
         this.items = items;
         perfumeItemsDelivered = true;
+    }
+
+    @Override
+    public void sendDatabaseError() {
     }
 
     @Override

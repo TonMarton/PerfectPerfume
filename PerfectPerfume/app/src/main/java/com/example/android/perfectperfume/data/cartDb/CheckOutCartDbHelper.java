@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.android.perfectperfume.data.CheckOutCart;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -22,6 +23,19 @@ public class CheckOutCartDbHelper extends CartDbHelper {
 
     public interface CheckOutCartDbHelperCallbacks {
         void processCartItems(List<Integer> ids, List<Integer> counts);
+        void sendDatabaseError();
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot ds) {
+        super.onDataChange(ds);
+        getOrders(ds);
+        callbacks.processCartItems(ids, counts);
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError databaseError) {
+        callbacks.sendDatabaseError();
     }
 
     public CheckOutCartDbHelper(CheckOutCart cart) {
@@ -34,13 +48,7 @@ public class CheckOutCartDbHelper extends CartDbHelper {
         }
     }
 
-    @Override
-    public void onDataChange(@NonNull DataSnapshot ds) {
-        super.onDataChange(ds);
-        getOrders(ds);
-        callbacks.processCartItems(ids, counts);
-    }
-
+    //TODO: add the order actually.
     public void addOrder() {
         orderCount++;
         DatabaseReference order = dbRef.child(ORDERS_DB_URL + userId + "/" +
