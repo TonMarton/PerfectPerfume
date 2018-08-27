@@ -16,6 +16,7 @@
             android:textSize="42sp"
             android:text="Perfect Perfume"
             android:fontFamily="@font/signpainter_housescript_regular"
+            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_marginTop="50dp"
             android:textColor="@android:color/black"/>

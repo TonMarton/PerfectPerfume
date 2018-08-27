@@ -2,51 +2,42 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/login_interface_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/checkout_bottom_decor"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="@string/login_screen_welcome_text"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="40sp"
-        android:fontFamily="@font/signpainter_housescript_regular"
-        android:textAlignment="center"
-        android:textColor="#D9FFFFFF"/>
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:orientation="vertical"
-        android:padding="32dp"
         android:layout_gravity="center">
 
         <ImageView
+            android:id="@+id/login_shared_element_iv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="160dp"
             android:layout_gravity="center"
             android:src="@drawable/bottle_frame_dark"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:transitionName="shared_element_bottle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_screen_text"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
+            android:textStyle="bold"
+            android:textSize="42sp"
+            android:fontFamily="@font/signpainter_housescript_regular"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
 
         <EditText
             android:id="@+id/sign_in_email_edittext"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edittext_height"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-light"
             android:background="@drawable/edittext_bg"
             android:hint="@string/email_edittext_caption"
