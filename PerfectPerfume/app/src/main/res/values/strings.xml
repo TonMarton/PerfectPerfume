@@ -2,7 +2,7 @@
     <string name="app_name">PerfectPerfume</string>
 
     <!--LoginActivity UI-->
-    <string name="login_screen_welcome_text">Welcome to Perfect Perfume</string>
+    <string name="login_screen_text">Log-in</string>
     <string name="email_edittext_caption">E-mail address</string>
     <string name="password_edittext_caption">Password</string>
     <string name="login_button_text">Log-in</string>

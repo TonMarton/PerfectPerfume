@@ -18,6 +18,7 @@ import com.example.android.perfectperfume.utilities.SignInHandler;
 
 public class LoginActivity extends AppCompatActivity implements SignInHandler.SignInHelper {
 
+    //TODO: something strange going on with the transition, when directly transferring to store activity
     private SignInHandler signInHandler;
     
     @Override
@@ -46,9 +47,14 @@ public class LoginActivity extends AppCompatActivity implements SignInHandler.Si
     public void signInReady() {
         Intent intent = new Intent(this, StoreActivity.class);
         ImageView sharedElement = findViewById(R.id.login_shared_element_iv);
-        ActivityOptions options = ActivityOptions
-                .makeSceneTransitionAnimation(this, sharedElement, "shared_element_bottle");
-        startActivity(intent, options.toBundle());
+        if (sharedElement == null) {
+            startActivity(intent);
+        } else {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
+                    sharedElement, "shared_element_bottle");
+            startActivity(intent, options.toBundle());
+        }
+        finish();
     }
 
     @Override
