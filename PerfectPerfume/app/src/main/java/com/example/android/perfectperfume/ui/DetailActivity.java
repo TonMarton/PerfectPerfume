@@ -23,14 +23,14 @@ import com.example.android.perfectperfume.ui.checkoutActivity.CheckOutActivity;
 
 public class DetailActivity extends AppCompatActivity implements Cart.CartCallbacks {
 
-    FloatingActionButton cartFab;
-    Toolbar toolbar;
-    LinearLayout detailContainer;
-    TextView brandSexTextView;
-    TextView nameTextView;
-    TextView sizeTextView;
-    TextView priceTextView;
-    TextView descriptionTextView;
+    private FloatingActionButton cartFab;
+    private Toolbar toolbar;
+    private LinearLayout detailContainer;
+    private TextView brandSexTextView;
+    private TextView nameTextView;
+    private TextView sizeTextView;
+    private TextView priceTextView;
+    private TextView descriptionTextView;
     private ImageView cartImageView;
 
     Perfume perfume;
@@ -39,6 +39,29 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
 
 
     private final static String PERFUME_SAVE_TAG = "perfume_tag";
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.store_menu, menu);
+        LayoutInflater inf =
+                (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        cartImageView =
+                (ImageView) inf.inflate(R.layout.cart_icon_imageview, null);
+        cartImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCheckOutActivity();
+            }
+        });
+        menu.findItem(R.id.cart).setActionView(cartImageView);
+        return true;
+    }
+
+    @Override
+    public void animateCartIcon() {
+        if (cartImageView != null) cartImageView.startAnimation(cartAnimation);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,24 +96,6 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.store_menu, menu);
-        LayoutInflater inf =
-                (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        cartImageView =
-                (ImageView) inf.inflate(R.layout.cart_icon_imageview, null);
-        cartImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openCheckOutActivity();
-            }
-        });
-        menu.findItem(R.id.cart).setActionView(cartImageView);
-        return true;
-    }
-
-    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PERFUME_SAVE_TAG, perfume);
@@ -108,20 +113,15 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
         if (cart != null) cart.activityResumed();
     }
 
-    @Override
-    public void animateCartIcon() {
-        if (cartImageView != null) cartImageView.startAnimation(cartAnimation);
-    }
-
     private void bindViews() {
         cartFab = findViewById(R.id.cart_fab);
         toolbar = findViewById(R.id.toolbar_detail);
-        detailContainer = findViewById(R.id.detail_text_background_layout);
-        brandSexTextView = findViewById(R.id.brand_sex_textview);
-        nameTextView = findViewById(R.id.name_textview);
-        sizeTextView = findViewById(R.id.size_textview);
-        priceTextView = findViewById(R.id.price_textview);
-        descriptionTextView = findViewById(R.id.description_textview);
+        detailContainer = findViewById(R.id.detail_text_background_ll);
+        brandSexTextView = findViewById(R.id.brand_sex_tv);
+        nameTextView = findViewById(R.id.name_tv);
+        sizeTextView = findViewById(R.id.size_tv);
+        priceTextView = findViewById(R.id.price_tv);
+        descriptionTextView = findViewById(R.id.description_tv);
     }
 
     private void openCheckOutActivity() {
