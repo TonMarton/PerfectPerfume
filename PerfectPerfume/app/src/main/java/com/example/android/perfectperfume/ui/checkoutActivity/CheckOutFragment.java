@@ -1,5 +1,8 @@
 package com.example.android.perfectperfume.ui.checkoutActivity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import com.example.android.perfectperfume.R;
 import com.example.android.perfectperfume.data.Perfume;
 import com.example.android.perfectperfume.data.CheckOutCart;
+import com.example.android.perfectperfume.ui.LoadingAnimationLayout;
 import com.example.android.perfectperfume.utilities.PaymentHelper;
 
 import java.text.DecimalFormat;
@@ -34,6 +38,7 @@ public class CheckOutFragment extends Fragment implements
     private RelativeLayout containerLayout;
     private ScrollView scrollView;
     private LinearLayout itemList;
+    private LoadingAnimationLayout loadingLayout;
     private TextView totalTextView;
     private RelativeLayout googlePayLayout;
     private Activity activity;
@@ -42,6 +47,8 @@ public class CheckOutFragment extends Fragment implements
         void onActivityResult(int requestCode, int resultCode, Intent data);
         void setCheckOutFragment(CheckOutFragment fragment);
     }
+
+    //TODO: provide a way to close the fragment for tablet view, force the data to reaload after navigating back always!!!
 
     @Override
     public void onAttach(Context context) {
@@ -72,6 +79,7 @@ public class CheckOutFragment extends Fragment implements
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bindViews(view);
+        loadingLayout.startAnimation();
         googlePayLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,15 +128,25 @@ public class CheckOutFragment extends Fragment implements
     }
 
     @Override
-    public void generateItems(List<Perfume> perfumes, List<Integer> counts) {
-        //TODO: make the load view disappear
-        inflateCheckOutCards(perfumes, counts);
+    public void generateItems(final List<Perfume> perfumes, final List<Integer> counts) {
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(loadingLayout, "alpha", 1, 0);
+        fadeOut.setDuration(2000);
+        fadeOut.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                inflateCheckOutCards(perfumes, counts);
+                loadingLayout.setVisibility(View.GONE);
+                loadingLayout = null;
+            }
+        });
+        fadeOut.start();
     }
 
     private void bindViews(View view) {
         containerLayout = view.findViewById(R.id.checkout_container_rl);
         scrollView = view.findViewById(R.id.checkout_sv);
         itemList = view.findViewById(R.id.item_list_ll);
+        loadingLayout = view.findViewById(R.id.loading_animation_layout_fl);
         totalTextView = view.findViewById(R.id.total_tv);
         googlePayLayout = view.findViewById(R.id.google_pay_rl);
     }
@@ -144,7 +162,8 @@ public class CheckOutFragment extends Fragment implements
                 itemList.addView(item);
             }
         } else {
-            Log.d("CheckOutFragment", "inflateCheckOutCards called before onAttach... !");
+            Log.e("CheckOutFragment",
+                    "Fragment not initialised or attached to Activity.");
         }
     }
 }

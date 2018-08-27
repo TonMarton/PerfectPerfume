@@ -18,14 +18,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.android.perfectperfume.R;
-import com.example.android.perfectperfume.ui.checkoutActivity.CheckOutCardLayout;
-import com.google.android.gms.common.images.internal.LoadingImageView;
 
 public class LoadingAnimationLayout extends FrameLayout {
 
     private ImageView imageView;
-
-    private ObjectAnimator rotationAnim;
 
     public LoadingAnimationLayout(@NonNull Context context) {
         super(context);

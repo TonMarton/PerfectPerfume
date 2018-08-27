@@ -25,6 +25,15 @@
                 android:padding="16dp"
                 android:background="@color/colorAccentLight"
                 android:clipToPadding="false">
+
+                <com.example.android.perfectperfume.ui.LoadingAnimationLayout
+                    android:id="@+id/loading_animation_layout_fl"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="32dp"
+                    android:background="@drawable/loading_anim_transition_bg">
+                </com.example.android.perfectperfume.ui.LoadingAnimationLayout>
             </LinearLayout>
 
             <LinearLayout
