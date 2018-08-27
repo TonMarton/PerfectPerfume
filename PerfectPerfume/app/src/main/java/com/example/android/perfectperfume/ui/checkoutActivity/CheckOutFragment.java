@@ -1,10 +1,12 @@
 package com.example.android.perfectperfume.ui.checkoutActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ public class CheckOutFragment extends Fragment implements
     private LinearLayout itemList;
     private TextView totalTextView;
     private RelativeLayout googlePayLayout;
+    private Activity activity;
 
     public interface CheckOutFragmentCallbacks {
         void onActivityResult(int requestCode, int resultCode, Intent data);
@@ -50,6 +53,7 @@ public class CheckOutFragment extends Fragment implements
                     "CheckOutFragmentCallbacks");
         }
         callbacks.setCheckOutFragment(this);
+        activity = getActivity();
     }
 
     @Override
@@ -130,13 +134,17 @@ public class CheckOutFragment extends Fragment implements
     }
 
     private void inflateCheckOutCards(List<Perfume> items, List<Integer> counts) {
-        LayoutInflater inf = getActivity().getLayoutInflater();
-        for (int i = 0; i < items.size(); i++) {
-            CheckOutCardLayout item = (CheckOutCardLayout) inf.inflate(getResources().getLayout
-                    (R.layout.checkout_item_layout), itemList, false);
-            item.attachCheckOutCardToFragment(this);
-            item.setData(items.get(i), counts.get(i));
-            itemList.addView(item);
+        if (activity != null) {
+            LayoutInflater inf = activity.getLayoutInflater();
+            for (int i = 0; i < items.size(); i++) {
+                CheckOutCardLayout item = (CheckOutCardLayout) inf.inflate(getResources().getLayout
+                        (R.layout.checkout_item_layout), itemList, false);
+                item.attachCheckOutCardToFragment(this);
+                item.setData(items.get(i), counts.get(i));
+                itemList.addView(item);
+            }
+        } else {
+            Log.d("CheckOutFragment", "inflateCheckOutCards called before onAttach... !");
         }
     }
 }
