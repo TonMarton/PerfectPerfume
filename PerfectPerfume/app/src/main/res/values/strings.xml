@@ -37,4 +37,10 @@
 
     <string name="purchase_message_heading">Thank you!</string>
     <string name="purchase_message_body">Check your order with the Perfect Perfume Widget.</string>
+
+    <string name="widget_default_text">You have no orders to be received, shop some perfumes
+        now!</string>
+    <string name="widget_nouser_text">You are not signed in, click here to do so!</string>
+
+    <string name="payment_impossible_text">Payments are closed for now, come back later...</string>
 </resources>

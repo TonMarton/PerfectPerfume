@@ -1,5 +1,6 @@
 package com.example.android.perfectperfume.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -29,7 +30,6 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
 
     private FloatingActionButton cartFab;
     private Toolbar toolbar;
-    private LinearLayout detailContainer;
     private TextView brandSexTextView;
     private TextView nameTextView;
     private TextView sizeTextView;
@@ -93,10 +93,11 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        brandSexTextView.setText("By " + perfume.getBrand() + " For " + perfume.getSex());
+        brandSexTextView.setText(perfume.getBrand());
         nameTextView.setText(perfume.getName());
         sizeTextView.setText(perfume.getSize());
-        priceTextView.setText("€" + perfume.getPrice());
+        String priceText = "€" + perfume.getPrice();
+        priceTextView.setText(priceText);
         descriptionTextView.setText(perfume.getDescription());
         String uri = perfume.getimageurl();
         Glide.with(this).load(uri).into(thumbnailImageView);
@@ -123,7 +124,6 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
     private void bindViews() {
         cartFab = findViewById(R.id.cart_fab);
         toolbar = findViewById(R.id.toolbar_detail);
-        detailContainer = findViewById(R.id.detail_text_background_ll);
         brandSexTextView = findViewById(R.id.brand_sex_tv);
         nameTextView = findViewById(R.id.name_tv);
         sizeTextView = findViewById(R.id.size_tv);

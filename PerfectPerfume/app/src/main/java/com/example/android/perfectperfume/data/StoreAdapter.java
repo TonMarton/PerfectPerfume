@@ -65,16 +65,18 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
     public StoreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RelativeLayout layout = (RelativeLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_card, parent, false);
-        ViewHolder vh = new ViewHolder(layout);
-        return vh;
+        return new ViewHolder(layout);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Perfume perfume = perfumes.get(position);
-        holder.perfumeNameTextView.setText(perfume.getName() + " by " + perfume.getBrand());
-        holder.perfumeSexTextView.setText("For " + perfume.getSex());
-        holder.perfumePriceTextView.setText("€" + perfume.getPrice());
+        String nameText = perfume.getName() + " " + perfume.getBrand();
+        holder.perfumeNameTextView.setText(nameText);
+        String sexText = "For " + perfume.getSex();
+        holder.perfumeSexTextView.setText(sexText);
+        String priceText = "€" + perfume.getPrice();
+        holder.perfumePriceTextView.setText(priceText);
         String uri = perfumes.get(position).getimageurl();
         counter++;
         Glide.with(context).load(uri).listener(new RequestListener<String, GlideDrawable>() {

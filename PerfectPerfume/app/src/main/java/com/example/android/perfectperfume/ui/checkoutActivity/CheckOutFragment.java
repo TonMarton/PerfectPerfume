@@ -24,6 +24,7 @@ import com.example.android.perfectperfume.data.Perfume;
 import com.example.android.perfectperfume.data.CheckOutCart;
 import com.example.android.perfectperfume.ui.LoadingAnimationLayout;
 import com.example.android.perfectperfume.ui.PurchaseResultMessage;
+import com.example.android.perfectperfume.ui.WarningMessage;
 import com.example.android.perfectperfume.utilities.PaymentHelper;
 
 import java.text.DecimalFormat;
@@ -32,17 +33,18 @@ import java.util.List;
 public class CheckOutFragment extends Fragment implements
         CheckOutCardLayout.CheckOutCardLayoutCallbacks, CheckOutCart.CheckOutCartCallbacks{
 
+    private Activity activity;
     private CheckOutFragmentCallbacks callbacks;
     private CheckOutCart checkOutCart;
     private double total;
 
+    private LinearLayout paymentImpossibleLayout;
     private RelativeLayout containerLayout;
     private ScrollView scrollView;
     private LinearLayout itemList;
     private LoadingAnimationLayout loadingLayout;
     private TextView totalTextView;
     private RelativeLayout googlePayLayout;
-    private Activity activity;
 
     public interface CheckOutFragmentCallbacks {
         void onActivityResult(int requestCode, int resultCode, Intent data);
@@ -106,7 +108,6 @@ public class CheckOutFragment extends Fragment implements
         if (requestCode == PaymentHelper.PAYMENT_REQUEST_CODE) {
             checkOutCart.deliverPaymentResponse(requestCode, resultCode, data);
             PurchaseResultMessage.displayMessage(activity);
-
         }
     }
 
@@ -145,6 +146,22 @@ public class CheckOutFragment extends Fragment implements
         fadeOut.start();
     }
 
+    @Override
+    public void readyToPay(boolean ready) {
+        if (ready) {
+            googlePayLayout.setVisibility(View.VISIBLE);
+        } else {
+            WarningMessage.createConnectionWarning(getContext(), "Payment is not possible.");
+        }
+    }
+
+    @Override
+    public void removeCartItemsViews() {
+        itemList.removeAllViews();
+        totalTextView.setText("0");
+        googlePayLayout.setVisibility(View.INVISIBLE);
+    }
+
     private void bindViews(View view) {
         containerLayout = view.findViewById(R.id.checkout_container_rl);
         scrollView = view.findViewById(R.id.checkout_sv);
@@ -152,6 +169,7 @@ public class CheckOutFragment extends Fragment implements
         loadingLayout = view.findViewById(R.id.loading_animation_layout_fl);
         totalTextView = view.findViewById(R.id.total_tv);
         googlePayLayout = view.findViewById(R.id.google_pay_rl);
+        paymentImpossibleLayout = view.findViewById(R.id.payment_impossible_ll);
     }
 
     private void inflateCheckOutCards(List<Perfume> items, List<Integer> counts) {

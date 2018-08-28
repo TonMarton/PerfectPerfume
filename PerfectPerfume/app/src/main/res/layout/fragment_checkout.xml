@@ -98,12 +98,21 @@
                     android:src="@drawable/checkout_bottom_decor"
                     android:scaleType="centerCrop"/>
 
-                <include
-                    android:id="@+id/google_pay_rl"
-                    layout="@layout/buy_with_googlepay_button"
-                    android:layout_width="290dp"
-                    android:layout_height="60dp"
-                    android:layout_centerInParent="true"/>
+                    <include
+                        android:id="@+id/google_pay_rl"
+                        layout="@layout/buy_with_googlepay_button"
+                        android:layout_width="290dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:visibility="invisible"/>
+
+                    <include
+                        android:id="@+id/payment_impossible_ll"
+                        layout="@layout/impossible_payment_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="invisible"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

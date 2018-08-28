@@ -3,8 +3,6 @@ package com.example.android.perfectperfume.utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.google.android.gms.common.api.ApiException;
@@ -49,6 +47,7 @@ public class PaymentHelper {
         }
         paymentsClient = getPaymentsClientInstance(activity);
         this.activity = activity;
+        isReadyToPay();
     }
 
     private PaymentsClient getPaymentsClientInstance(Context context) {

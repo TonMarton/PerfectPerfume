@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -140,9 +141,9 @@ public class SignInHandler implements FirebaseAuth.AuthStateListener{
         } else {
             logText = "signUpWithEmail";
         }
-        task.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        task.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+            public void onSuccess(AuthResult authResult) {
                 Log.d(LOG_IN_TAG,  logText + " succeeded");
                 FirebaseUser user = auth.getCurrentUser();
                 signInCallbacks.signInReady();
@@ -163,25 +164,24 @@ public class SignInHandler implements FirebaseAuth.AuthStateListener{
                 WarningMessage.createConnectionWarning(context, warningText);
             }
         });
-        /*if (task.isSuccessful()) {
-            Log.d(LOG_IN_TAG,  logText + ":success");
-            FirebaseUser user = auth.getCurrentUser();
-            signInCallbacks.signInReady();
-        } else {
-            // If sign in fails, display a message to the user.
-            Log.w(LOG_IN_TAG, logText + ":failure", task.getException());
-            WarningMessage.createConnectionWarning(context, "");
-        }*/
     }
 
     public static FirebaseUser getCurrentUser() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        return auth.getCurrentUser();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) return user;
+        else throw new NullPointerException("There is no currently signed in user...");
     }
 
     public boolean isValidEmailPassword(String email, String password) {
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
-                password.length() >= PASSWORD_LENGTH;
-        //TODO: extend functionality to give error messages and info about password requirements
+        if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
+                password.length() >= PASSWORD_LENGTH) {
+            return true;
+        } else {
+            String text = context.getResources().getString(R.string.validation_warning);
+            WarningMessage.createConnectionWarning(context, text);
+            return false;
+        }
+
     }
 }

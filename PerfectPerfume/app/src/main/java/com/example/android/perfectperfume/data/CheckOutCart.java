@@ -1,12 +1,9 @@
 package com.example.android.perfectperfume.data;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.android.perfectperfume.data.cartDb.CheckOutCartDbHelper;
-import com.example.android.perfectperfume.ui.WarningMessage;
 import com.example.android.perfectperfume.ui.checkoutActivity.CheckOutFragment;
 import com.example.android.perfectperfume.utilities.PaymentHelper;
 
@@ -29,6 +26,8 @@ public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCa
 
     public interface CheckOutCartCallbacks {
         void generateItems(List<Perfume> perfumes, List<Integer> counts);
+        void readyToPay(boolean ready);
+        void removeCartItemsViews();
     }
 
     public CheckOutCart(CheckOutFragment fragment) {
@@ -56,7 +55,10 @@ public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCa
     }
 
     public void deliverPaymentResponse(int requestCode, int resultCode, Intent data) {
+        //TODO: deliver only if returned the result code is ok
         paymentHelper.handleActivityResult(requestCode, resultCode, data);
+        cartDbHelper.addOrder();
+        callbacks.removeCartItemsViews();
     }
 
     @Override
@@ -84,15 +86,12 @@ public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCa
 
     @Override
     public void sendDatabaseError() {
+        //TODO: send dab error
     }
 
     @Override
     public void isReadyToPay(boolean ready) {
-        if (ready) {
-            //TODO: make it disappear
-        } else {
-            //TODO: make it disappear, but instead of the button display a warning that slug cant play
-        }
+        callbacks.readyToPay(ready);
     }
 
     private void sortOutItems(List<Integer> ids, List<Perfume> items) {

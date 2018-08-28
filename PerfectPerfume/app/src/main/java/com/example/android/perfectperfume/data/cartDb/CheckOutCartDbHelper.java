@@ -48,13 +48,10 @@ public class CheckOutCartDbHelper extends CartDbHelper {
         }
     }
 
-    //TODO: add the order actually.
     public void addOrder() {
         orderCount++;
         DatabaseReference order = dbRef.child(ORDERS_DB_URL + userId + "/" +
-                ORDERS_DB_LIST_URL + "/" +
-                (orderCount - 1)
-        );
+                ORDERS_DB_LIST_URL + "/" + (orderCount - 1));
         for (int i = 0; i < ids.size(); i++) {
             String key = ids.get(i).toString();
             int value = counts.get(i);
