@@ -34,4 +34,7 @@
     <string name="email_signup_error_warning">This account can not be found.</string>
     <string name="validation_warning">Invalid e-mail or password.
         Use a real e-mail address and a password that is at least 6 characters long.</string>
+
+    <string name="purchase_message_heading">Thank you!</string>
+    <string name="purchase_message_body">Check your order with the Perfect Perfume Widget.</string>
 </resources>

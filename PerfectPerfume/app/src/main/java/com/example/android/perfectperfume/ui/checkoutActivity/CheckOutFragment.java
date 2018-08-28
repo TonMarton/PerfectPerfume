@@ -23,6 +23,7 @@ import com.example.android.perfectperfume.R;
 import com.example.android.perfectperfume.data.Perfume;
 import com.example.android.perfectperfume.data.CheckOutCart;
 import com.example.android.perfectperfume.ui.LoadingAnimationLayout;
+import com.example.android.perfectperfume.ui.PurchaseResultMessage;
 import com.example.android.perfectperfume.utilities.PaymentHelper;
 
 import java.text.DecimalFormat;
@@ -104,6 +105,8 @@ public class CheckOutFragment extends Fragment implements
     public void deliverActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PaymentHelper.PAYMENT_REQUEST_CODE) {
             checkOutCart.deliverPaymentResponse(requestCode, resultCode, data);
+            PurchaseResultMessage.displayMessage(activity);
+
         }
     }
 
@@ -130,7 +133,7 @@ public class CheckOutFragment extends Fragment implements
     @Override
     public void generateItems(final List<Perfume> perfumes, final List<Integer> counts) {
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(loadingLayout, "alpha", 1, 0);
-        fadeOut.setDuration(2000);
+        fadeOut.setDuration(1300);
         fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {

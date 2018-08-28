@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp" android:layout_height="300dp"
+    android:background="@drawable/purchase_message_bg"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:src="@drawable/bottle_frame_dark"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center"
+            android:fontFamily="@font/signpainter_housescript_regular"
+            android:textSize="24sp"
+            android:text="@string/purchase_message_heading"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:text="@string/purchase_message_body"/>
+    </LinearLayout>
+</FrameLayout>

@@ -3,7 +3,6 @@ package com.example.android.perfectperfume.data;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +75,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
         holder.perfumeNameTextView.setText(perfume.getName() + " by " + perfume.getBrand());
         holder.perfumeSexTextView.setText("For " + perfume.getSex());
         holder.perfumePriceTextView.setText("€" + perfume.getPrice());
-        String uri = perfumes.get(0).getimageurl();
+        String uri = perfumes.get(position).getimageurl();
         counter++;
         Glide.with(context).load(uri).listener(new RequestListener<String, GlideDrawable>() {
             @Override

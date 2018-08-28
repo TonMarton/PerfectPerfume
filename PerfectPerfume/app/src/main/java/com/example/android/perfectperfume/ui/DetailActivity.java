@@ -16,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.android.perfectperfume.R;
 import com.example.android.perfectperfume.data.Cart;
 import com.example.android.perfectperfume.data.Perfume;
@@ -31,6 +35,7 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
     private TextView sizeTextView;
     private TextView priceTextView;
     private TextView descriptionTextView;
+    private ImageView thumbnailImageView;
     private ImageView cartImageView;
 
     Perfume perfume;
@@ -93,6 +98,8 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
         sizeTextView.setText(perfume.getSize());
         priceTextView.setText("€" + perfume.getPrice());
         descriptionTextView.setText(perfume.getDescription());
+        String uri = perfume.getimageurl();
+        Glide.with(this).load(uri).into(thumbnailImageView);
     }
 
     @Override
@@ -122,6 +129,7 @@ public class DetailActivity extends AppCompatActivity implements Cart.CartCallba
         sizeTextView = findViewById(R.id.size_tv);
         priceTextView = findViewById(R.id.price_tv);
         descriptionTextView = findViewById(R.id.description_tv);
+        thumbnailImageView = findViewById(R.id.thumbnail_iv);
     }
 
     private void openCheckOutActivity() {
