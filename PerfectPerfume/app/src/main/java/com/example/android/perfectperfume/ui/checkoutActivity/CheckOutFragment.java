@@ -51,7 +51,6 @@ public class CheckOutFragment extends Fragment implements
         void setCheckOutFragment(CheckOutFragment fragment);
     }
 
-    //TODO: provide a way to close the fragment for tablet view, force the data to reaload after navigating back always!!!
 
     @Override
     public void onAttach(Context context) {
@@ -94,14 +93,12 @@ public class CheckOutFragment extends Fragment implements
     @Override
     public void onStop() {
         super.onStop();
-        //TODO: close the fragemnt for once and all.
     }
 
     @Override
     public void onResume() {
         super.onResume();
         checkOutCart.onActivityResumed();
-                // TODO: finish implementing the pause function into the abstract dbHelper also: do erease it from the ticker
     }
 
     public void deliverActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,7 +111,6 @@ public class CheckOutFragment extends Fragment implements
     public void updateTotal(double amount) {
         total += amount;
         if (total == 0) {
-            //TODO: close the cart since there is no interaction possible anymore...
         }
         DecimalFormat df = new DecimalFormat("#.##");
         String totalString = "€" + df.format(total);

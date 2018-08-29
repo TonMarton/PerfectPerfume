@@ -74,7 +74,6 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
-        //TODO: care for lower api as well
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
         }

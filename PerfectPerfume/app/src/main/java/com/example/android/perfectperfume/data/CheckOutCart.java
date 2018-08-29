@@ -55,7 +55,6 @@ public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCa
     }
 
     public void deliverPaymentResponse(int requestCode, int resultCode, Intent data) {
-        //TODO: deliver only if returned the result code is ok
         paymentHelper.handleActivityResult(requestCode, resultCode, data);
         cartDbHelper.addOrder();
         callbacks.removeCartItemsViews();
@@ -86,7 +85,6 @@ public class CheckOutCart implements CheckOutCartDbHelper.CheckOutCartDbHelperCa
 
     @Override
     public void sendDatabaseError() {
-        //TODO: send dab error
     }
 
     @Override

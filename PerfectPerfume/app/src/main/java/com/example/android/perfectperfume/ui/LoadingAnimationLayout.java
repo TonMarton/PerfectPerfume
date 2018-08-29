@@ -57,7 +57,6 @@ public class LoadingAnimationLayout extends FrameLayout {
                             LoadingAnimationLayout.this.getViewTreeObserver()
                                     .removeGlobalOnLayoutListener(this);
                         }
-                        //TODO: could remove this line:
                         LoadingAnimationLayout.this.invalidate();
                         assembleAndLaunchAnimations();
                     }

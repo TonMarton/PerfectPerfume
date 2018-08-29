@@ -3,8 +3,6 @@ package com.example.android.perfectperfume.utilities;
 import android.os.Handler;
 
 import com.example.android.perfectperfume.data.Cart;
-/*TODO: maybe make this into a singleton, since it would be practical
- to not restart the times over and over, when browsing perfumes*/
 public class AnimationTimer {
 
     private static int ANIMATION_OFFSET;

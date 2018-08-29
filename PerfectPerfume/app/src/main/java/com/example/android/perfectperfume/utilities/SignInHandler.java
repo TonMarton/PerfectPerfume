@@ -95,7 +95,6 @@ public class SignInHandler implements FirebaseAuth.AuthStateListener{
         } catch (ApiException e) {
             Log.w(LOG_IN_TAG, "Google sign in failed", e);
             return;
-            // TODO: do something, like log in again and return
         }
 
         Log.d(LOG_IN_TAG, "firebaseAuthWithGoogle:" + account.getId());

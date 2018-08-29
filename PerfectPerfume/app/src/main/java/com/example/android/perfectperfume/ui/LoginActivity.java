@@ -18,7 +18,6 @@ import com.example.android.perfectperfume.utilities.SignInHandler;
 
 public class LoginActivity extends AppCompatActivity implements SignInHandler.SignInHelper {
 
-    //TODO: something strange going on with the transition, when directly transferring to store activity
     private SignInHandler signInHandler;
     
     @Override
@@ -69,7 +68,6 @@ public class LoginActivity extends AppCompatActivity implements SignInHandler.Si
     }
 
     private void configureTransitions() {
-        //TODO: maybe request feature in a xml file
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
             getWindow().setAllowEnterTransitionOverlap(false);
