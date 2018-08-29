@@ -4,4 +4,5 @@
     android:layout_height="wrap_content"
     android:src="@drawable/cart_icon"
     android:scaleType="centerInside"
-    android:padding="10dp"/>
+    android:padding="10dp"
+    android:contentDescription="@string/cart_iv_content_description" />

@@ -1,5 +1,6 @@
 package com.example.android.perfectperfume.utilities;
 
+import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -49,6 +50,19 @@ public class SignInHandler implements FirebaseAuth.AuthStateListener{
 
         } catch (ClassCastException e){
             throw new ClassCastException(context.toString()
+                    + " must implement SignInHelper");
+        }
+        this.context = context;
+        auth = FirebaseAuth.getInstance();
+        auth.addAuthStateListener(this);
+    }
+
+    public SignInHandler(AppWidgetProvider provider, Context context) {
+        try {
+            signInCallbacks = (SignInHelper) provider;
+
+        } catch (ClassCastException e){
+            throw new ClassCastException(provider.toString()
                     + " must implement SignInHelper");
         }
         this.context = context;

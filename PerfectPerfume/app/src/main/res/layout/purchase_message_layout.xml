@@ -16,7 +16,8 @@
             android:layout_height="100dp"
             android:src="@drawable/bottle_frame_dark"
             android:layout_gravity="center"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:contentDescription="@string/bottle_frame_dark_content_description"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -19,7 +19,8 @@
             android:layout_height="200dp"
             android:src="@drawable/perfume1_flat"
             android:scaleType="centerInside"
-            android:background="@drawable/item_card_bg"/>
+            android:background="@drawable/item_card_bg"
+            android:contentDescription="@string/perfume_imageview_content_description"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -33,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
-                android:text="Name of the perfume blaty"
                 android:fontFamily="sans-serif-light"
                 android:textStyle="italic"
                 android:textSize="28sp"
@@ -51,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="For Her"
                 android:fontFamily="sans-serif-light"
                 android:textStyle="italic"
                 android:textSize="32sp"
@@ -63,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical|end"
-                android:text="€14.5"
                 android:fontFamily="sans-serif-light"
                 android:textStyle="italic"
                 android:textSize="32sp"

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 
 import com.example.android.perfectperfume.R;
 import com.example.android.perfectperfume.utilities.SignInHandler;
@@ -18,18 +17,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WidgetProvider extends AppWidgetProvider implements SignInHandler.SignInHelper, ValueEventListener {
 
+    private final String DEBUG_TAG = "Perfume Widget";
     private RemoteViews remoteViews;
     private Context context;
+    private AppWidgetManager manager;
+    private int[] ids;
     private String uuid;
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         final int N = appWidgetIds.length;
+
         this.context = context;
+        this.ids = appWidgetIds;
+        this.manager = appWidgetManager;
+
+        //start fetching update data
+        SignInHandler handler = new SignInHandler(this, context);
 
         // Perform this loop procedure for each App Widget that belongs to this provider
         for (int i=0; i<N; i++) {
@@ -40,6 +45,7 @@ public class WidgetProvider extends AppWidgetProvider implements SignInHandler.S
             remoteViews.setOnClickPendingIntent(R.id.widget_root, pendingIntent);
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
         }
+        Log.d(DEBUG_TAG, "onUpdate");
     }
 
 
@@ -50,10 +56,12 @@ public class WidgetProvider extends AppWidgetProvider implements SignInHandler.S
 
     @Override
     public void signInReady() {
+
         uuid = SignInHandler.getCurrentUser().getUid();
         //start fetching the data from the cart db
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.addListenerForSingleValueEvent(this);
+        Log.d(DEBUG_TAG, "signInReady");
     }
 
     @Override
@@ -61,15 +69,17 @@ public class WidgetProvider extends AppWidgetProvider implements SignInHandler.S
         //there is no signed in user
         if (remoteViews != null) {
             String text = context.getResources().getString(R.string.widget_nouser_text);
-            remoteViews.setTextViewText(R.id.widget_tv, text);
+            modifyWidgetText(text);
         }
+        Log.d(DEBUG_TAG, "showLoginInterface");
     }
 
     @Override
     public void onDataChange(@NonNull DataSnapshot ds) {
-        int count = (int) ds.child("orders/" + uuid + "/meta/count").getValue();
+        long count = (long) ds.child("orders/" + uuid + "/meta/count").getValue();
         String text = " to be arriving.";
-        switch (count) {
+        int intCount =  Integer.parseInt(Long.toString(count));
+        switch (intCount) {
             case 0:
                 text = "You have no orders" + text;
                 break;
@@ -80,12 +90,26 @@ public class WidgetProvider extends AppWidgetProvider implements SignInHandler.S
                 text = "You have " + count + " orders" + text;
                 break;
         }
-        Log.e("This is the text",text);
-        remoteViews.setTextViewText(R.id.widget_tv, text);
+        if (remoteViews != null) {
+            Log.d(DEBUG_TAG, "onDataChange - text: " + text);
+            modifyWidgetText(text);
+        } else {
+            Log.d(DEBUG_TAG, "onDataChange - remoteViews was null");
+        }
     }
 
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
+        Log.d(DEBUG_TAG, "onCancelled");
+    }
 
+    private void modifyWidgetText(String text) {
+        final int N = ids.length;
+        for (int i=0; i<N; i++) {
+            int appWidgetId = ids[i];
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget);
+            remoteViews.setTextViewText(R.id.widget_tv, text);
+            manager.updateAppWidget(appWidgetId, remoteViews);
+        }
     }
 }

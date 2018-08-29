@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +31,7 @@ import com.example.android.perfectperfume.data.StoreAdapter;
 import com.example.android.perfectperfume.ui.checkoutActivity.CheckOutActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StoreActivity extends AppCompatActivity implements Cart.CartCallbacks, PerfumeDbHelper.PerfumeDataCallbacks, StoreAdapter.StoreAdapterCallbacks {
@@ -37,7 +40,7 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
     private RecyclerView recyclerView;
     private ImageView cartImageView;
 
-    private List<Perfume> mPerfumes = new ArrayList<>();
+    private List<Perfume> perfumes = new ArrayList<>();
     private Cart cart;
     private PerfumeDbHelper perfumeDbHelper;
     private Animation cartAnimation;
@@ -54,6 +57,7 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
 
     @Override
     public void deliverPerfumes(List<Perfume> items) {
+        perfumes = items;
         setUpToolbar();
         setUpRecyclerView(items);
     }
@@ -83,12 +87,12 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
                 .loadAnimation(this, R.anim.cart_animation);
 
         if (savedInstanceState != null) {
-            mPerfumes = savedInstanceState.getParcelableArrayList(SAVE_PERFUMES_KEY);
-            setUpRecyclerView(mPerfumes);
+            perfumes = savedInstanceState.getParcelableArrayList(SAVE_PERFUMES_KEY);
+            setUpRecyclerView(perfumes);
+            Log.d("perfumes we have:","count: " + perfumes.size());
             Log.d(LOG_DATA_LOAD_TYPE, "SavedInstanceState");
         } else {
             initLoadingScreen();
-
             //starts downloading the perfume data as soon as constructed, then returns the findings
             perfumeDbHelper = new PerfumeDbHelper(this);
             Log.d(LOG_DATA_LOAD_TYPE, "PerfumeDbHelper");
@@ -127,8 +131,11 @@ public class StoreActivity extends AppCompatActivity implements Cart.CartCallbac
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(SAVE_PERFUMES_KEY , (ArrayList<Perfume>) mPerfumes);
+        if (uiReady) {
+            super.onSaveInstanceState(outState);
+            Log.d("perfumes we have:", "count: " + perfumes.size());
+            outState.putParcelableArrayList(SAVE_PERFUMES_KEY, (ArrayList<Perfume>) perfumes);
+        }
     }
 
     private void swapLayouts() {

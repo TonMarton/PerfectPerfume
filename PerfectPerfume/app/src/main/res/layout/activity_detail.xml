@@ -22,7 +22,8 @@
                 android:layout_weight="0"
                 android:scaleType="center"
                 android:paddingTop="32dp"
-                android:background="@android:color/white"/>
+                android:background="@android:color/white"
+                android:contentDescription="@string/detail_thumbnail_iv_content_description"/>
 
             <View
                 android:layout_width="match_parent"
@@ -141,7 +142,8 @@
             app:fabSize="normal"
             android:layout_margin="16dp"
             android:src="@drawable/plus"
-            android:backgroundTint="@color/colorPrimary"/>
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/fab_content_description"/>
     </RelativeLayout>
 
     <android.support.design.widget.AppBarLayout

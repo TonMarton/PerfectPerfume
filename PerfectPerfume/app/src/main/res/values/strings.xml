@@ -8,9 +8,8 @@
     <string name="login_button_text">Log-in</string>
     <string name="or_login_text">OR</string>
     <string name="register_button_text">Sign-up</string>
-
-    <!--SignUpActivity UI-->
-    <string name="sign_up_activity_label">Sign-Up</string>
+    <string name="loggin_in_text">Logging-in...</string>
+    <string name="sign_in_google_button_text">Sign in with Google</string>
 
     <string name="sign_up_disclaimer_text">By Creating a Perfect Perfume account, you gain access to
         good deals and full membership on our platform. By Signing-up you also agree to the terms
@@ -42,5 +41,20 @@
         now!</string>
     <string name="widget_nouser_text">You are not signed in, click here to do so!</string>
 
-    <string name="payment_impossible_text">Payments are closed for now, come back later...</string>
+    <string name="payment_impossible_text">Payments are closed for now, come back later...</string>ú
+
+    <!--contentDescriptions-->
+    <string name="cart_iv_content_description">Shopping-cart icon.</string>
+    <string name="google_play_button_content_description">Content part of the google-pay button.
+    </string>
+    <string name="google_play_button_overlay_content_description">
+        Overlay part of the google-pay button.</string>
+    <string name="detail_thumbnail_iv_content_description">Image of the currently selected perfume
+        / cologne.</string>
+    <string name="checkout_bottom_decor_content_description">Small perfume vials all over the place.
+    </string>
+    <string name="perfume_imageview_content_description">Small image of the perfume.</string>
+    <string name="bottle_frame_dark_content_description">A bit artistic looking frames of a classic
+        style perfume vial.</string>
+    <string name="fab_content_description">Press to add a perfume of this kind to the cart.</string>
 </resources>

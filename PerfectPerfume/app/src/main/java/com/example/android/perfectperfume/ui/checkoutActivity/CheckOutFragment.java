@@ -104,7 +104,7 @@ public class CheckOutFragment extends Fragment implements
     public void deliverActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PaymentHelper.PAYMENT_REQUEST_CODE) {
             checkOutCart.deliverPaymentResponse(requestCode, resultCode, data);
-            PurchaseResultMessage.displayMessage(activity);
+            new PurchaseResultMessage().displayMessage(activity);
         }
     }
 

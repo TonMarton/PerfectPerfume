@@ -18,7 +18,8 @@
             android:layout_gravity="center"
             android:src="@drawable/bottle_frame_dark"
             android:layout_marginTop="16dp"
-            android:transitionName="shared_element_bottle"/>
+            android:transitionName="shared_element_bottle"
+            android:contentDescription="@string/bottle_frame_dark_content_description"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -148,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/btn_google_signin_light_normal_hdpi"
-            android:text="Sign in with Google"
+            android:text="@string/sign_in_google_button_text"
             android:layout_alignParentRight="true"
             android:elevation="8dp"
             android:textSize="20sp"

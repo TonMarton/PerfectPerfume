@@ -14,7 +14,8 @@
         android:src="@drawable/bottle_frame_dark"
         android:scaleType="centerInside"
         android:layout_margin="16dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:contentDescription="@string/bottle_frame_dark_content_description"/>
 
     <TextView
         android:id="@+id/widget_tv"

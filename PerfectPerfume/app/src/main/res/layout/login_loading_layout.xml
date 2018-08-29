@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textSize="42sp"
-            android:text="Perfect Perfume"
+            android:text="@string/app_name"
             android:fontFamily="@font/signpainter_housescript_regular"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
@@ -33,7 +33,8 @@
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/bottle_frame_dark"
-                android:transitionName="shared_element_bottle"/>
+                android:transitionName="shared_element_bottle"
+                android:contentDescription="@string/bottle_frame_dark_content_description"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -44,20 +45,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Logging-in"
+                    android:text="@string/loggin_in_text"
                     android:fontFamily="@font/signpainter_housescript_regular"
                     android:textSize="32sp"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="ton.marton@gmail.com"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="20sp"
-                    android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

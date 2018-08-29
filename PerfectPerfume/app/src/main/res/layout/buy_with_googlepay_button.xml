@@ -22,7 +22,8 @@
             android:layout_height="0dp"
             android:scaleType="fitCenter"
             android:duplicateParentState="true"
-            android:src="@drawable/buy_with_googlepay_button_content"/>
+            android:src="@drawable/buy_with_googlepay_button_content"
+            android:contentDescription="@string/google_play_button_content_description"/>
     </LinearLayout>
 
     <ImageView
@@ -30,5 +31,6 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:duplicateParentState="true"
-        android:src="@drawable/googlepay_button_overlay"/>
+        android:src="@drawable/googlepay_button_overlay"
+        android:contentDescription="@string/google_play_button_overlay_content_description"/>
 </RelativeLayout>

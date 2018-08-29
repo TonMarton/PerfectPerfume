@@ -6,4 +6,5 @@
     android:scaleType="fitCenter"
     android:padding="16dp"
     android:layout_gravity="center"
-    android:transitionName="shared_element_bottle"/>
+    android:transitionName="shared_element_bottle"
+    android:contentDescription="@string/bottle_frame_dark_content_description"/>
